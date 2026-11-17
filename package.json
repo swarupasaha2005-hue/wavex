@@ -1,0 +1,21 @@
+{
+  "name": "wavex",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "dev:frontend": "npm run dev --workspace frontend",
+    "dev:backend": "backend/.venv/bin/python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000",
+    "build": "npm run build --workspace frontend",
+    "typecheck": "npm run typecheck --workspace frontend",
+    "test:backend": "backend/.venv/bin/python -m pytest backend/tests -q",
+    "test:browser": "node scripts/browser-test.mjs && node scripts/resilience-test.mjs",
+    "format": "prettier --write frontend/src frontend/*.ts frontend/*.json frontend/*.mjs scripts/*.mjs package.json"
+  },
+  "workspaces": [
+    "frontend"
+  ],
+  "devDependencies": {
+    "playwright": "^1.58.0",
+    "prettier": "^3.10.1"
+  }
+}

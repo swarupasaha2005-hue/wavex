@@ -1,0 +1,2851 @@
+{
+  "measuredAtUtc": "2026-11-16T17:49:55.001783+00:00",
+  "physicalRamBytes": 8589934592,
+  "fixtureDescription": "Real, fully written, seeded telemetry files; three numeric series and int64-nanosecond timestamps. Decimal GB.",
+  "reports": {
+    "final-query-density": {
+      "condition": "Final density selection; application idle, no other tests or ingestion",
+      "p50Ms": 18.79754149558721,
+      "p95Ms": 23.557167005492374,
+      "samples": [
+        {
+          "queryMs": 35.57824999734294,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 16.886166005861014,
+          "partitionsRead": 5,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741031,
+          "level": 262144
+        },
+        {
+          "queryMs": 16.04300001054071,
+          "partitionsRead": 5,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 23.687124994467013,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 14.998958999058232,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 23.27299999888055,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 14.292874999227934,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 23.55062498827465,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 12.811459004296921,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 23.557167005492374,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 14.5096670021303,
+          "partitionsRead": 4,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 19.13891700678505,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 14.280415998655371,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 21.693791990401223,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 13.8967499951832,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 18.523666993132792,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 12.593125007697381,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 19.948000001022592,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 14.272417000029236,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 19.777916997554712,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 14.020000002346933,
+          "partitionsRead": 4,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 19.923333005863242,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 13.541000007535331,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 19.082166996668093,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 12.708207999821752,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 19.837749990983866,
+          "partitionsRead": 9,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 13.679833005880937,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 19.19670899224002,
+          "partitionsRead": 9,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 15.980875003151596,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 20.894208995741792,
+          "partitionsRead": 9,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 15.027291010483168,
+          "partitionsRead": 4,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 20.559500000672415,
+          "partitionsRead": 9,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 14.13620800303761,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 20.92337499198038,
+          "partitionsRead": 9,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 19.07141599804163,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 21.522458002436906,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 15.749583006254397,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 19.7097080090316,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 18.001416989136487,
+          "partitionsRead": 5,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 20.077458990272135,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        }
+      ]
+    },
+    "large-files-csv": {
+      "machineRamBytes": 8589934592,
+      "cases": [
+        {
+          "sourceBytes": 1002810304,
+          "sourceFormat": "csv",
+          "rows": 19922944,
+          "ingestionSeconds": 6.829535124998074,
+          "peakWorkerRssBytes": 343113728,
+          "parquetBytes": 614024990,
+          "queryP50Ms": 11.946416496357415,
+          "queryP95Ms": 12.60254200315103,
+          "overviewMs": 4.838542008656077,
+          "anomalyPreserved": true,
+          "queries": [
+            {
+              "queryMs": 89.71420899615623,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 13.061959005426615,
+              "partitionsRead": 6,
+              "partitionsTotal": 197,
+              "sourceRows": 3984588,
+              "level": 16384
+            },
+            {
+              "queryMs": 10.192083005676977,
+              "partitionsRead": 5,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 11.625457991613075,
+              "partitionsRead": 5,
+              "partitionsTotal": 197,
+              "sourceRows": 3984588,
+              "level": 16384
+            },
+            {
+              "queryMs": 10.050249999039806,
+              "partitionsRead": 5,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.60254200315103,
+              "partitionsRead": 6,
+              "partitionsTotal": 197,
+              "sourceRows": 3984589,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.744790993863717,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.58604199392721,
+              "partitionsRead": 6,
+              "partitionsTotal": 197,
+              "sourceRows": 3984588,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.7762499935925,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.601084003108554,
+              "partitionsRead": 6,
+              "partitionsTotal": 197,
+              "sourceRows": 3984588,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.623167003155686,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.594500003615394,
+              "partitionsRead": 6,
+              "partitionsTotal": 197,
+              "sourceRows": 3984589,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.778374995221384,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.573333995533176,
+              "partitionsRead": 7,
+              "partitionsTotal": 197,
+              "sourceRows": 3984589,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.786416994757019,
+              "partitionsRead": 4,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.552416999824345,
+              "partitionsRead": 7,
+              "partitionsTotal": 197,
+              "sourceRows": 3984588,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.793417004402727,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.326540992944501,
+              "partitionsRead": 7,
+              "partitionsTotal": 197,
+              "sourceRows": 3984589,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.684208998805843,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.381792010273784,
+              "partitionsRead": 7,
+              "partitionsTotal": 197,
+              "sourceRows": 3984589,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.686959005193785,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.465374995372258,
+              "partitionsRead": 7,
+              "partitionsTotal": 197,
+              "sourceRows": 3984588,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.620416996767744,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.367916002403945,
+              "partitionsRead": 6,
+              "partitionsTotal": 197,
+              "sourceRows": 3984589,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.717791006551124,
+              "partitionsRead": 4,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.385750000248663,
+              "partitionsRead": 6,
+              "partitionsTotal": 197,
+              "sourceRows": 3984589,
+              "level": 16384
+            },
+            {
+              "queryMs": 8.810583007289097,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.376041995594278,
+              "partitionsRead": 6,
+              "partitionsTotal": 197,
+              "sourceRows": 3984588,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.630958011257462,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.491500005126,
+              "partitionsRead": 6,
+              "partitionsTotal": 197,
+              "sourceRows": 3984589,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.637541996198706,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.383625013171695,
+              "partitionsRead": 6,
+              "partitionsTotal": 197,
+              "sourceRows": 3984589,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.7872920014197,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.531540996860713,
+              "partitionsRead": 7,
+              "partitionsTotal": 197,
+              "sourceRows": 3984588,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.452500002225861,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.28158301091753,
+              "partitionsRead": 7,
+              "partitionsTotal": 197,
+              "sourceRows": 3984589,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.643750003306195,
+              "partitionsRead": 4,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.498333002440631,
+              "partitionsRead": 7,
+              "partitionsTotal": 197,
+              "sourceRows": 3984589,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.736040999996476,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.267375001101755,
+              "partitionsRead": 7,
+              "partitionsTotal": 197,
+              "sourceRows": 3984588,
+              "level": 16384
+            }
+          ],
+          "memoryLimit": "256MB DuckDB per connection; bounded 4MiB Arrow parsing and 131072-row Polars partitions"
+        },
+        {
+          "sourceBytes": 5000832861,
+          "sourceFormat": "csv",
+          "rows": 99352576,
+          "ingestionSeconds": 37.35046383300505,
+          "peakWorkerRssBytes": 354074624,
+          "parquetBytes": 3061576132,
+          "queryP50Ms": 14.077874991926365,
+          "queryP95Ms": 17.165374985779636,
+          "overviewMs": 4.742374992929399,
+          "anomalyPreserved": true,
+          "queries": [
+            {
+              "queryMs": 31.0404589981772,
+              "partitionsRead": 3,
+              "partitionsTotal": 965,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 17.03329200972803,
+              "partitionsRead": 8,
+              "partitionsTotal": 965,
+              "sourceRows": 19870515,
+              "level": 262144
+            },
+            {
+              "queryMs": 12.330458004726097,
+              "partitionsRead": 5,
+              "partitionsTotal": 965,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 17.1700420032721,
+              "partitionsRead": 8,
+              "partitionsTotal": 965,
+              "sourceRows": 19870515,
+              "level": 262144
+            },
+            {
+              "queryMs": 12.105041998438537,
+              "partitionsRead": 4,
+              "partitionsTotal": 965,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.541499993763864,
+              "partitionsRead": 8,
+              "partitionsTotal": 965,
+              "sourceRows": 19870515,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.547208006959409,
+              "partitionsRead": 4,
+              "partitionsTotal": 965,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.382125002564862,
+              "partitionsRead": 8,
+              "partitionsTotal": 965,
+              "sourceRows": 19870515,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.633749993052334,
+              "partitionsRead": 4,
+              "partitionsTotal": 965,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.299750001053326,
+              "partitionsRead": 8,
+              "partitionsTotal": 965,
+              "sourceRows": 19870515,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.837750003905967,
+              "partitionsRead": 5,
+              "partitionsTotal": 965,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.26274999580346,
+              "partitionsRead": 8,
+              "partitionsTotal": 965,
+              "sourceRows": 19870515,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.986500001512468,
+              "partitionsRead": 3,
+              "partitionsTotal": 965,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.32470899494365,
+              "partitionsRead": 8,
+              "partitionsTotal": 965,
+              "sourceRows": 19870515,
+              "level": 262144
+            },
+            {
+              "queryMs": 9.758000000147149,
+              "partitionsRead": 3,
+              "partitionsTotal": 965,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.56241700402461,
+              "partitionsRead": 8,
+              "partitionsTotal": 965,
+              "sourceRows": 19870515,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.955624999245629,
+              "partitionsRead": 3,
+              "partitionsTotal": 965,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.387333991588093,
+              "partitionsRead": 8,
+              "partitionsTotal": 965,
+              "sourceRows": 19870515,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.471290999907069,
+              "partitionsRead": 3,
+              "partitionsTotal": 965,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.645750001771376,
+              "partitionsRead": 8,
+              "partitionsTotal": 965,
+              "sourceRows": 19870515,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.443458002759144,
+              "partitionsRead": 3,
+              "partitionsTotal": 965,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 17.165374985779636,
+              "partitionsRead": 8,
+              "partitionsTotal": 965,
+              "sourceRows": 19870515,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.73016699613072,
+              "partitionsRead": 3,
+              "partitionsTotal": 965,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 15.32387500628829,
+              "partitionsRead": 8,
+              "partitionsTotal": 965,
+              "sourceRows": 19870515,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.459750006906688,
+              "partitionsRead": 3,
+              "partitionsTotal": 965,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.244042009930126,
+              "partitionsRead": 8,
+              "partitionsTotal": 965,
+              "sourceRows": 19870515,
+              "level": 262144
+            },
+            {
+              "queryMs": 9.628917003283277,
+              "partitionsRead": 3,
+              "partitionsTotal": 965,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 15.544958994723856,
+              "partitionsRead": 8,
+              "partitionsTotal": 965,
+              "sourceRows": 19870515,
+              "level": 262144
+            },
+            {
+              "queryMs": 9.589624998625368,
+              "partitionsRead": 3,
+              "partitionsTotal": 965,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.70645800186321,
+              "partitionsRead": 8,
+              "partitionsTotal": 965,
+              "sourceRows": 19870515,
+              "level": 262144
+            },
+            {
+              "queryMs": 9.662541997386143,
+              "partitionsRead": 3,
+              "partitionsTotal": 965,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 14.079874992603436,
+              "partitionsRead": 8,
+              "partitionsTotal": 965,
+              "sourceRows": 19870515,
+              "level": 262144
+            },
+            {
+              "queryMs": 9.63945800322108,
+              "partitionsRead": 3,
+              "partitionsTotal": 965,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 14.197624986991286,
+              "partitionsRead": 8,
+              "partitionsTotal": 965,
+              "sourceRows": 19870515,
+              "level": 262144
+            },
+            {
+              "queryMs": 9.429875004570931,
+              "partitionsRead": 3,
+              "partitionsTotal": 965,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 14.297250003437512,
+              "partitionsRead": 8,
+              "partitionsTotal": 965,
+              "sourceRows": 19870515,
+              "level": 262144
+            },
+            {
+              "queryMs": 9.600874996976927,
+              "partitionsRead": 3,
+              "partitionsTotal": 965,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 14.075874991249293,
+              "partitionsRead": 8,
+              "partitionsTotal": 965,
+              "sourceRows": 19870515,
+              "level": 262144
+            },
+            {
+              "queryMs": 9.499916995991953,
+              "partitionsRead": 3,
+              "partitionsTotal": 965,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 14.15675001044292,
+              "partitionsRead": 8,
+              "partitionsTotal": 965,
+              "sourceRows": 19870515,
+              "level": 262144
+            }
+          ],
+          "memoryLimit": "256MB DuckDB per connection; bounded 4MiB Arrow parsing and 131072-row Polars partitions"
+        },
+        {
+          "sourceBytes": 10001673367,
+          "sourceFormat": "csv",
+          "rows": 198705152,
+          "ingestionSeconds": 75.12087708299805,
+          "peakWorkerRssBytes": 357826560,
+          "parquetBytes": 6123323649,
+          "queryP50Ms": 16.26929199846927,
+          "queryP95Ms": 18.024165998212993,
+          "overviewMs": 5.5606250098207965,
+          "anomalyPreserved": true,
+          "queries": [
+            {
+              "queryMs": 30.86545800033491,
+              "partitionsRead": 3,
+              "partitionsTotal": 1925,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 17.53570800065063,
+              "partitionsRead": 8,
+              "partitionsTotal": 1925,
+              "sourceRows": 39741030,
+              "level": 262144
+            },
+            {
+              "queryMs": 12.406624999130145,
+              "partitionsRead": 3,
+              "partitionsTotal": 1925,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 17.989083004067652,
+              "partitionsRead": 8,
+              "partitionsTotal": 1925,
+              "sourceRows": 39741030,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.849458998767659,
+              "partitionsRead": 3,
+              "partitionsTotal": 1925,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 18.024165998212993,
+              "partitionsRead": 8,
+              "partitionsTotal": 1925,
+              "sourceRows": 39741030,
+              "level": 262144
+            },
+            {
+              "queryMs": 12.44512498669792,
+              "partitionsRead": 5,
+              "partitionsTotal": 1925,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.920250011025928,
+              "partitionsRead": 8,
+              "partitionsTotal": 1925,
+              "sourceRows": 39741030,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.948084007599391,
+              "partitionsRead": 4,
+              "partitionsTotal": 1925,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 17.113209003582597,
+              "partitionsRead": 8,
+              "partitionsTotal": 1925,
+              "sourceRows": 39741030,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.441416994784959,
+              "partitionsRead": 3,
+              "partitionsTotal": 1925,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.479375000926666,
+              "partitionsRead": 8,
+              "partitionsTotal": 1925,
+              "sourceRows": 39741030,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.474625003756955,
+              "partitionsRead": 3,
+              "partitionsTotal": 1925,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 18.521624995628372,
+              "partitionsRead": 8,
+              "partitionsTotal": 1925,
+              "sourceRows": 39741030,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.67462499870453,
+              "partitionsRead": 3,
+              "partitionsTotal": 1925,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 17.40245799010154,
+              "partitionsRead": 8,
+              "partitionsTotal": 1925,
+              "sourceRows": 39741030,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.693249995005317,
+              "partitionsRead": 3,
+              "partitionsTotal": 1925,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.91245900292415,
+              "partitionsRead": 8,
+              "partitionsTotal": 1925,
+              "sourceRows": 39741030,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.569917012820952,
+              "partitionsRead": 3,
+              "partitionsTotal": 1925,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.949540993664414,
+              "partitionsRead": 8,
+              "partitionsTotal": 1925,
+              "sourceRows": 39741030,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.420916998758912,
+              "partitionsRead": 3,
+              "partitionsTotal": 1925,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.364166993298568,
+              "partitionsRead": 8,
+              "partitionsTotal": 1925,
+              "sourceRows": 39741031,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.611750000156462,
+              "partitionsRead": 3,
+              "partitionsTotal": 1925,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.913165993173607,
+              "partitionsRead": 8,
+              "partitionsTotal": 1925,
+              "sourceRows": 39741030,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.473792008473538,
+              "partitionsRead": 3,
+              "partitionsTotal": 1925,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.902250004932284,
+              "partitionsRead": 9,
+              "partitionsTotal": 1925,
+              "sourceRows": 39741031,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.948166997171938,
+              "partitionsRead": 4,
+              "partitionsTotal": 1925,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.56199998978991,
+              "partitionsRead": 9,
+              "partitionsTotal": 1925,
+              "sourceRows": 39741030,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.553166012163274,
+              "partitionsRead": 4,
+              "partitionsTotal": 1925,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.620000009424984,
+              "partitionsRead": 9,
+              "partitionsTotal": 1925,
+              "sourceRows": 39741031,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.197708998224698,
+              "partitionsRead": 3,
+              "partitionsTotal": 1925,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.174417003639974,
+              "partitionsRead": 9,
+              "partitionsTotal": 1925,
+              "sourceRows": 39741030,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.402040996472351,
+              "partitionsRead": 3,
+              "partitionsTotal": 1925,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.373667007428594,
+              "partitionsRead": 9,
+              "partitionsTotal": 1925,
+              "sourceRows": 39741031,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.332374997437,
+              "partitionsRead": 3,
+              "partitionsTotal": 1925,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.420833009760827,
+              "partitionsRead": 8,
+              "partitionsTotal": 1925,
+              "sourceRows": 39741030,
+              "level": 262144
+            },
+            {
+              "queryMs": 9.849500012933277,
+              "partitionsRead": 3,
+              "partitionsTotal": 1925,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.421290987636894,
+              "partitionsRead": 8,
+              "partitionsTotal": 1925,
+              "sourceRows": 39741031,
+              "level": 262144
+            },
+            {
+              "queryMs": 10.18508400011342,
+              "partitionsRead": 3,
+              "partitionsTotal": 1925,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 17.727375001413748,
+              "partitionsRead": 8,
+              "partitionsTotal": 1925,
+              "sourceRows": 39741030,
+              "level": 262144
+            }
+          ],
+          "memoryLimit": "256MB DuckDB per connection; bounded 4MiB Arrow parsing and 131072-row Polars partitions"
+        }
+      ]
+    },
+    "large-files-jsonl": {
+      "machineRamBytes": 8589934592,
+      "cases": [
+        {
+          "sourceBytes": 1001490849,
+          "sourceFormat": "jsonl",
+          "rows": 10289152,
+          "ingestionSeconds": 7.896536500004004,
+          "peakWorkerRssBytes": 302645248,
+          "parquetBytes": 317274517,
+          "queryP50Ms": 11.317687494738493,
+          "queryP95Ms": 12.868542005890049,
+          "overviewMs": 4.743124998640269,
+          "anomalyPreserved": true,
+          "queries": [
+            {
+              "queryMs": 105.96320900367573,
+              "partitionsRead": 3,
+              "partitionsTotal": 105,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.962042004801333,
+              "partitionsRead": 6,
+              "partitionsTotal": 105,
+              "sourceRows": 2057830,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.933167006238364,
+              "partitionsRead": 3,
+              "partitionsTotal": 105,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.840708004659973,
+              "partitionsRead": 6,
+              "partitionsTotal": 105,
+              "sourceRows": 2057831,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.960666007827967,
+              "partitionsRead": 3,
+              "partitionsTotal": 105,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.415332996170036,
+              "partitionsRead": 6,
+              "partitionsTotal": 105,
+              "sourceRows": 2057830,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.853583003859967,
+              "partitionsRead": 3,
+              "partitionsTotal": 105,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.39879199420102,
+              "partitionsRead": 6,
+              "partitionsTotal": 105,
+              "sourceRows": 2057830,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.697250003227964,
+              "partitionsRead": 3,
+              "partitionsTotal": 105,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.103542001568712,
+              "partitionsRead": 6,
+              "partitionsTotal": 105,
+              "sourceRows": 2057831,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.6181249973597,
+              "partitionsRead": 3,
+              "partitionsTotal": 105,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.053375001414679,
+              "partitionsRead": 6,
+              "partitionsTotal": 105,
+              "sourceRows": 2057830,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.674666987848468,
+              "partitionsRead": 3,
+              "partitionsTotal": 105,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.868542005890049,
+              "partitionsRead": 6,
+              "partitionsTotal": 105,
+              "sourceRows": 2057830,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.66545801202301,
+              "partitionsRead": 3,
+              "partitionsTotal": 105,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.118541999370791,
+              "partitionsRead": 6,
+              "partitionsTotal": 105,
+              "sourceRows": 2057830,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.69983400136698,
+              "partitionsRead": 3,
+              "partitionsTotal": 105,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.303333001909778,
+              "partitionsRead": 6,
+              "partitionsTotal": 105,
+              "sourceRows": 2057830,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.74058399151545,
+              "partitionsRead": 3,
+              "partitionsTotal": 105,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.013542000204325,
+              "partitionsRead": 6,
+              "partitionsTotal": 105,
+              "sourceRows": 2057830,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.661000003688969,
+              "partitionsRead": 3,
+              "partitionsTotal": 105,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.019917005090974,
+              "partitionsRead": 6,
+              "partitionsTotal": 105,
+              "sourceRows": 2057830,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.614916998543777,
+              "partitionsRead": 3,
+              "partitionsTotal": 105,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.524082994787022,
+              "partitionsRead": 6,
+              "partitionsTotal": 105,
+              "sourceRows": 2057830,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.581165999406949,
+              "partitionsRead": 3,
+              "partitionsTotal": 105,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.227958999574184,
+              "partitionsRead": 6,
+              "partitionsTotal": 105,
+              "sourceRows": 2057831,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.593208989826962,
+              "partitionsRead": 3,
+              "partitionsTotal": 105,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.0583749958314,
+              "partitionsRead": 6,
+              "partitionsTotal": 105,
+              "sourceRows": 2057830,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.682459000032395,
+              "partitionsRead": 3,
+              "partitionsTotal": 105,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 12.031707999994978,
+              "partitionsRead": 6,
+              "partitionsTotal": 105,
+              "sourceRows": 2057830,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.66712499212008,
+              "partitionsRead": 3,
+              "partitionsTotal": 105,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 10.915165999904275,
+              "partitionsRead": 6,
+              "partitionsTotal": 105,
+              "sourceRows": 2057831,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.428749996004626,
+              "partitionsRead": 3,
+              "partitionsTotal": 105,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 11.957125010667369,
+              "partitionsRead": 7,
+              "partitionsTotal": 105,
+              "sourceRows": 2057830,
+              "level": 16384
+            },
+            {
+              "queryMs": 8.485749989631586,
+              "partitionsRead": 3,
+              "partitionsTotal": 105,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 11.949666994041763,
+              "partitionsRead": 7,
+              "partitionsTotal": 105,
+              "sourceRows": 2057830,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.512500007986091,
+              "partitionsRead": 3,
+              "partitionsTotal": 105,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 11.839166007121094,
+              "partitionsRead": 7,
+              "partitionsTotal": 105,
+              "sourceRows": 2057830,
+              "level": 16384
+            },
+            {
+              "queryMs": 8.28058400657028,
+              "partitionsRead": 3,
+              "partitionsTotal": 105,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 11.720208989572711,
+              "partitionsRead": 7,
+              "partitionsTotal": 105,
+              "sourceRows": 2057830,
+              "level": 16384
+            }
+          ],
+          "memoryLimit": "256MB DuckDB per connection; bounded 4MiB Arrow parsing and 131072-row Polars partitions"
+        },
+        {
+          "sourceBytes": 5001057790,
+          "sourceFormat": "jsonl",
+          "rows": 51380224,
+          "ingestionSeconds": 39.66094266700384,
+          "peakWorkerRssBytes": 320143360,
+          "parquetBytes": 1583532398,
+          "queryP50Ms": 13.858750004146714,
+          "queryP95Ms": 16.86291699297726,
+          "overviewMs": 4.955791999236681,
+          "anomalyPreserved": true,
+          "queries": [
+            {
+              "queryMs": 108.47258400463033,
+              "partitionsRead": 3,
+              "partitionsTotal": 501,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.6128329874482,
+              "partitionsRead": 8,
+              "partitionsTotal": 501,
+              "sourceRows": 10276044,
+              "level": 262144
+            },
+            {
+              "queryMs": 12.187125001219101,
+              "partitionsRead": 3,
+              "partitionsTotal": 501,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.462084007798694,
+              "partitionsRead": 8,
+              "partitionsTotal": 501,
+              "sourceRows": 10276044,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.52845800970681,
+              "partitionsRead": 3,
+              "partitionsTotal": 501,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 17.30745799432043,
+              "partitionsRead": 8,
+              "partitionsTotal": 501,
+              "sourceRows": 10276045,
+              "level": 262144
+            },
+            {
+              "queryMs": 15.778417000547051,
+              "partitionsRead": 4,
+              "partitionsTotal": 501,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.86291699297726,
+              "partitionsRead": 8,
+              "partitionsTotal": 501,
+              "sourceRows": 10276045,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.427874997025356,
+              "partitionsRead": 3,
+              "partitionsTotal": 501,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 15.343291001045145,
+              "partitionsRead": 8,
+              "partitionsTotal": 501,
+              "sourceRows": 10276045,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.894957991898991,
+              "partitionsRead": 3,
+              "partitionsTotal": 501,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 14.910124999005347,
+              "partitionsRead": 8,
+              "partitionsTotal": 501,
+              "sourceRows": 10276045,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.259457998676226,
+              "partitionsRead": 3,
+              "partitionsTotal": 501,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 15.265499998349696,
+              "partitionsRead": 8,
+              "partitionsTotal": 501,
+              "sourceRows": 10276045,
+              "level": 262144
+            },
+            {
+              "queryMs": 9.930542000802234,
+              "partitionsRead": 3,
+              "partitionsTotal": 501,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 15.469375008251518,
+              "partitionsRead": 8,
+              "partitionsTotal": 501,
+              "sourceRows": 10276044,
+              "level": 262144
+            },
+            {
+              "queryMs": 10.047540999948978,
+              "partitionsRead": 4,
+              "partitionsTotal": 501,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 14.391584001714364,
+              "partitionsRead": 8,
+              "partitionsTotal": 501,
+              "sourceRows": 10276044,
+              "level": 262144
+            },
+            {
+              "queryMs": 9.804834000533447,
+              "partitionsRead": 3,
+              "partitionsTotal": 501,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 13.9107499999227,
+              "partitionsRead": 8,
+              "partitionsTotal": 501,
+              "sourceRows": 10276044,
+              "level": 262144
+            },
+            {
+              "queryMs": 9.735750005347654,
+              "partitionsRead": 3,
+              "partitionsTotal": 501,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 14.064875009353273,
+              "partitionsRead": 8,
+              "partitionsTotal": 501,
+              "sourceRows": 10276045,
+              "level": 262144
+            },
+            {
+              "queryMs": 9.629459003917873,
+              "partitionsRead": 3,
+              "partitionsTotal": 501,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 14.13937499455642,
+              "partitionsRead": 8,
+              "partitionsTotal": 501,
+              "sourceRows": 10276045,
+              "level": 262144
+            },
+            {
+              "queryMs": 10.221749995253049,
+              "partitionsRead": 3,
+              "partitionsTotal": 501,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 14.22420899325516,
+              "partitionsRead": 8,
+              "partitionsTotal": 501,
+              "sourceRows": 10276045,
+              "level": 262144
+            },
+            {
+              "queryMs": 9.680667004431598,
+              "partitionsRead": 4,
+              "partitionsTotal": 501,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 13.924875005614012,
+              "partitionsRead": 8,
+              "partitionsTotal": 501,
+              "sourceRows": 10276045,
+              "level": 262144
+            },
+            {
+              "queryMs": 9.651458007283509,
+              "partitionsRead": 3,
+              "partitionsTotal": 501,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 13.98512499872595,
+              "partitionsRead": 8,
+              "partitionsTotal": 501,
+              "sourceRows": 10276045,
+              "level": 262144
+            },
+            {
+              "queryMs": 9.592832997441292,
+              "partitionsRead": 3,
+              "partitionsTotal": 501,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 13.94383399747312,
+              "partitionsRead": 8,
+              "partitionsTotal": 501,
+              "sourceRows": 10276044,
+              "level": 262144
+            },
+            {
+              "queryMs": 9.591124995495193,
+              "partitionsRead": 3,
+              "partitionsTotal": 501,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 13.806750008370727,
+              "partitionsRead": 8,
+              "partitionsTotal": 501,
+              "sourceRows": 10276044,
+              "level": 262144
+            },
+            {
+              "queryMs": 9.586749991285615,
+              "partitionsRead": 3,
+              "partitionsTotal": 501,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 13.973583991173655,
+              "partitionsRead": 8,
+              "partitionsTotal": 501,
+              "sourceRows": 10276044,
+              "level": 262144
+            },
+            {
+              "queryMs": 9.64541699795518,
+              "partitionsRead": 3,
+              "partitionsTotal": 501,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 13.997167014167644,
+              "partitionsRead": 8,
+              "partitionsTotal": 501,
+              "sourceRows": 10276045,
+              "level": 262144
+            },
+            {
+              "queryMs": 9.731208003358915,
+              "partitionsRead": 6,
+              "partitionsTotal": 501,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 13.61637499940116,
+              "partitionsRead": 8,
+              "partitionsTotal": 501,
+              "sourceRows": 10276045,
+              "level": 262144
+            }
+          ],
+          "memoryLimit": "256MB DuckDB per connection; bounded 4MiB Arrow parsing and 131072-row Polars partitions"
+        },
+        {
+          "sourceBytes": 10002105303,
+          "sourceFormat": "jsonl",
+          "rows": 102760448,
+          "ingestionSeconds": 78.48048808300518,
+          "peakWorkerRssBytes": 335659008,
+          "parquetBytes": 3166583598,
+          "queryP50Ms": 14.091416996961925,
+          "queryP95Ms": 16.93304200307466,
+          "overviewMs": 4.751707994728349,
+          "anomalyPreserved": true,
+          "queries": [
+            {
+              "queryMs": 38.572916004341096,
+              "partitionsRead": 4,
+              "partitionsTotal": 998,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 17.146875004982576,
+              "partitionsRead": 8,
+              "partitionsTotal": 998,
+              "sourceRows": 20552089,
+              "level": 262144
+            },
+            {
+              "queryMs": 12.140459002694115,
+              "partitionsRead": 3,
+              "partitionsTotal": 998,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.93304200307466,
+              "partitionsRead": 8,
+              "partitionsTotal": 998,
+              "sourceRows": 20552089,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.794666992500424,
+              "partitionsRead": 3,
+              "partitionsTotal": 998,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.772791990661062,
+              "partitionsRead": 8,
+              "partitionsTotal": 998,
+              "sourceRows": 20552090,
+              "level": 262144
+            },
+            {
+              "queryMs": 12.035166000714526,
+              "partitionsRead": 4,
+              "partitionsTotal": 998,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.561208001803607,
+              "partitionsRead": 8,
+              "partitionsTotal": 998,
+              "sourceRows": 20552090,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.547333997441456,
+              "partitionsRead": 3,
+              "partitionsTotal": 998,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.463958003441803,
+              "partitionsRead": 8,
+              "partitionsTotal": 998,
+              "sourceRows": 20552089,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.65129199216608,
+              "partitionsRead": 3,
+              "partitionsTotal": 998,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.159124992555007,
+              "partitionsRead": 8,
+              "partitionsTotal": 998,
+              "sourceRows": 20552089,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.646792001556605,
+              "partitionsRead": 3,
+              "partitionsTotal": 998,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.290416999254376,
+              "partitionsRead": 8,
+              "partitionsTotal": 998,
+              "sourceRows": 20552089,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.838082995382138,
+              "partitionsRead": 3,
+              "partitionsTotal": 998,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.574042005231604,
+              "partitionsRead": 8,
+              "partitionsTotal": 998,
+              "sourceRows": 20552090,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.92545800586231,
+              "partitionsRead": 5,
+              "partitionsTotal": 998,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.432417003670707,
+              "partitionsRead": 8,
+              "partitionsTotal": 998,
+              "sourceRows": 20552090,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.208250012714416,
+              "partitionsRead": 3,
+              "partitionsTotal": 998,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.472584000439383,
+              "partitionsRead": 8,
+              "partitionsTotal": 998,
+              "sourceRows": 20552089,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.227666997001506,
+              "partitionsRead": 3,
+              "partitionsTotal": 998,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.604750009719282,
+              "partitionsRead": 8,
+              "partitionsTotal": 998,
+              "sourceRows": 20552089,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.823957989690825,
+              "partitionsRead": 3,
+              "partitionsTotal": 998,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 15.265082998666912,
+              "partitionsRead": 8,
+              "partitionsTotal": 998,
+              "sourceRows": 20552089,
+              "level": 262144
+            },
+            {
+              "queryMs": 11.73762499820441,
+              "partitionsRead": 3,
+              "partitionsTotal": 998,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 14.239583993912674,
+              "partitionsRead": 7,
+              "partitionsTotal": 998,
+              "sourceRows": 20552090,
+              "level": 262144
+            },
+            {
+              "queryMs": 9.64279199251905,
+              "partitionsRead": 4,
+              "partitionsTotal": 998,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 15.55266699870117,
+              "partitionsRead": 8,
+              "partitionsTotal": 998,
+              "sourceRows": 20552090,
+              "level": 262144
+            },
+            {
+              "queryMs": 9.509874987998046,
+              "partitionsRead": 3,
+              "partitionsTotal": 998,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 15.704874997027218,
+              "partitionsRead": 8,
+              "partitionsTotal": 998,
+              "sourceRows": 20552089,
+              "level": 262144
+            },
+            {
+              "queryMs": 9.650958003476262,
+              "partitionsRead": 3,
+              "partitionsTotal": 998,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 14.188624991220422,
+              "partitionsRead": 8,
+              "partitionsTotal": 998,
+              "sourceRows": 20552089,
+              "level": 262144
+            },
+            {
+              "queryMs": 9.639249998144805,
+              "partitionsRead": 4,
+              "partitionsTotal": 998,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 14.145291992463171,
+              "partitionsRead": 8,
+              "partitionsTotal": 998,
+              "sourceRows": 20552089,
+              "level": 262144
+            },
+            {
+              "queryMs": 9.664334007538855,
+              "partitionsRead": 3,
+              "partitionsTotal": 998,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 14.199666999047622,
+              "partitionsRead": 8,
+              "partitionsTotal": 998,
+              "sourceRows": 20552090,
+              "level": 262144
+            },
+            {
+              "queryMs": 9.663624994573183,
+              "partitionsRead": 3,
+              "partitionsTotal": 998,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 14.170499998726882,
+              "partitionsRead": 8,
+              "partitionsTotal": 998,
+              "sourceRows": 20552090,
+              "level": 262144
+            },
+            {
+              "queryMs": 9.26391698885709,
+              "partitionsRead": 3,
+              "partitionsTotal": 998,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 14.037542001460679,
+              "partitionsRead": 8,
+              "partitionsTotal": 998,
+              "sourceRows": 20552089,
+              "level": 262144
+            }
+          ],
+          "memoryLimit": "256MB DuckDB per connection; bounded 4MiB Arrow parsing and 131072-row Polars partitions"
+        }
+      ]
+    },
+    "ten-gb-playback": {
+      "datasetId": "import-58687886c7684307969ed1fa0c5aa702",
+      "sourceBytes": 10001673367,
+      "sourceRows": 198705152,
+      "seeks": [
+        {
+          "fraction": 0.01,
+          "windowSeconds": 1,
+          "includingReadoutWaitMs": 370,
+          "buffer": "3,652 / 24,576 max"
+        },
+        {
+          "fraction": 0.2,
+          "windowSeconds": 30,
+          "includingReadoutWaitMs": 389,
+          "buffer": "3,654 / 24,576 max"
+        },
+        {
+          "fraction": 0.5,
+          "windowSeconds": 120,
+          "includingReadoutWaitMs": 386,
+          "buffer": "2,205 / 24,576 max"
+        },
+        {
+          "fraction": 0.8,
+          "windowSeconds": 3600,
+          "includingReadoutWaitMs": 382,
+          "buffer": "4,549 / 24,576 max"
+        },
+        {
+          "fraction": 0.9,
+          "windowSeconds": 86400,
+          "includingReadoutWaitMs": 673,
+          "buffer": "4,227 / 24,576 max"
+        }
+      ],
+      "samples": [
+        {
+          "fps": 60,
+          "cpuDrawMs": 0.35
+        },
+        {
+          "fps": 60,
+          "cpuDrawMs": 0.35
+        },
+        {
+          "fps": 60,
+          "cpuDrawMs": 0.43
+        },
+        {
+          "fps": 60,
+          "cpuDrawMs": 0.38
+        },
+        {
+          "fps": 60,
+          "cpuDrawMs": 0.08
+        },
+        {
+          "fps": 60,
+          "cpuDrawMs": 0.25
+        },
+        {
+          "fps": 60,
+          "cpuDrawMs": 0.3
+        },
+        {
+          "fps": 60,
+          "cpuDrawMs": 0.45
+        },
+        {
+          "fps": 60,
+          "cpuDrawMs": 0.32
+        },
+        {
+          "fps": 60,
+          "cpuDrawMs": 0.27
+        },
+        {
+          "fps": 60,
+          "cpuDrawMs": 0.24
+        },
+        {
+          "fps": 60,
+          "cpuDrawMs": 0.33
+        }
+      ],
+      "averageFps": 60,
+      "averageCpuDrawMs": 0.3125,
+      "browserErrors": []
+    },
+    "import-browser-report": {
+      "resumedAtBytes": 8388608,
+      "sourceBytes": 1002810304,
+      "datasetId": "import-e6479f66610b4fe382fa7507a78c3a61",
+      "uploadRequests": 121,
+      "fps": 60,
+      "cpuDrawMs": 0.59,
+      "bufferedPoints": "3,232 / 24,576 max",
+      "errors": [],
+      "reopened": true
+    },
+    "large-files-csv-unsorted": {
+      "machineRamBytes": 8589934592,
+      "cases": [
+        {
+          "sourceBytes": 1002800614,
+          "sourceFormat": "csv",
+          "rows": 19922944,
+          "ingestionSeconds": 18.23284229100682,
+          "peakWorkerRssBytes": 523534336,
+          "parquetBytes": 614095165,
+          "queryP50Ms": 14.48425000126008,
+          "queryP95Ms": 18.381500005489215,
+          "overviewMs": 6.641791987931356,
+          "anomalyPreserved": true,
+          "queries": [
+            {
+              "queryMs": 110.25445800623856,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 18.381500005489215,
+              "partitionsRead": 6,
+              "partitionsTotal": 197,
+              "sourceRows": 3984588,
+              "level": 16384
+            },
+            {
+              "queryMs": 16.214041999774054,
+              "partitionsRead": 5,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 15.127916005440056,
+              "partitionsRead": 5,
+              "partitionsTotal": 197,
+              "sourceRows": 3984588,
+              "level": 16384
+            },
+            {
+              "queryMs": 13.358249998418614,
+              "partitionsRead": 5,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.225707993726246,
+              "partitionsRead": 6,
+              "partitionsTotal": 197,
+              "sourceRows": 3984589,
+              "level": 16384
+            },
+            {
+              "queryMs": 11.648208004771732,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 15.095208000275306,
+              "partitionsRead": 6,
+              "partitionsTotal": 197,
+              "sourceRows": 3984588,
+              "level": 16384
+            },
+            {
+              "queryMs": 11.461582995252684,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 14.211000001523644,
+              "partitionsRead": 6,
+              "partitionsTotal": 197,
+              "sourceRows": 3984588,
+              "level": 16384
+            },
+            {
+              "queryMs": 11.648915999103338,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.102291992865503,
+              "partitionsRead": 6,
+              "partitionsTotal": 197,
+              "sourceRows": 3984589,
+              "level": 16384
+            },
+            {
+              "queryMs": 14.537584007484838,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.93137499387376,
+              "partitionsRead": 7,
+              "partitionsTotal": 197,
+              "sourceRows": 3984589,
+              "level": 16384
+            },
+            {
+              "queryMs": 12.315458006924018,
+              "partitionsRead": 4,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 14.316833010525443,
+              "partitionsRead": 7,
+              "partitionsTotal": 197,
+              "sourceRows": 3984588,
+              "level": 16384
+            },
+            {
+              "queryMs": 12.591959006385878,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 15.943541991873644,
+              "partitionsRead": 7,
+              "partitionsTotal": 197,
+              "sourceRows": 3984589,
+              "level": 16384
+            },
+            {
+              "queryMs": 11.901875011972152,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 15.473290986847132,
+              "partitionsRead": 7,
+              "partitionsTotal": 197,
+              "sourceRows": 3984589,
+              "level": 16384
+            },
+            {
+              "queryMs": 12.113208998925984,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 14.896125008817762,
+              "partitionsRead": 7,
+              "partitionsTotal": 197,
+              "sourceRows": 3984588,
+              "level": 16384
+            },
+            {
+              "queryMs": 12.934167010826059,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.926833995967172,
+              "partitionsRead": 6,
+              "partitionsTotal": 197,
+              "sourceRows": 3984589,
+              "level": 16384
+            },
+            {
+              "queryMs": 10.77183400047943,
+              "partitionsRead": 4,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 13.78699998895172,
+              "partitionsRead": 6,
+              "partitionsTotal": 197,
+              "sourceRows": 3984589,
+              "level": 16384
+            },
+            {
+              "queryMs": 9.992833001888357,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 14.43091599503532,
+              "partitionsRead": 6,
+              "partitionsTotal": 197,
+              "sourceRows": 3984588,
+              "level": 16384
+            },
+            {
+              "queryMs": 16.680540997185744,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 16.768041998147964,
+              "partitionsRead": 6,
+              "partitionsTotal": 197,
+              "sourceRows": 3984589,
+              "level": 16384
+            },
+            {
+              "queryMs": 21.281458000885323,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 18.020208008238114,
+              "partitionsRead": 6,
+              "partitionsTotal": 197,
+              "sourceRows": 3984589,
+              "level": 16384
+            },
+            {
+              "queryMs": 15.509082993958145,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 13.210874996730126,
+              "partitionsRead": 7,
+              "partitionsTotal": 197,
+              "sourceRows": 3984588,
+              "level": 16384
+            },
+            {
+              "queryMs": 11.163000002852641,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 13.810208009090275,
+              "partitionsRead": 7,
+              "partitionsTotal": 197,
+              "sourceRows": 3984589,
+              "level": 16384
+            },
+            {
+              "queryMs": 11.205749993678182,
+              "partitionsRead": 4,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 14.643665999756195,
+              "partitionsRead": 7,
+              "partitionsTotal": 197,
+              "sourceRows": 3984589,
+              "level": 16384
+            },
+            {
+              "queryMs": 11.060707998694852,
+              "partitionsRead": 3,
+              "partitionsTotal": 197,
+              "sourceRows": 30000,
+              "level": 1024
+            },
+            {
+              "queryMs": 15.956874995026737,
+              "partitionsRead": 7,
+              "partitionsTotal": 197,
+              "sourceRows": 3984588,
+              "level": 16384
+            }
+          ],
+          "sortedOnImport": true,
+          "memoryLimit": "256MB DuckDB per connection; bounded 4MiB Arrow parsing and 131072-row Polars partitions"
+        }
+      ]
+    },
+    "import-retry-ui": {
+      "uploadDataset": "import-b95380b060e44d859c63041fec8cff16",
+      "uploadChunks": 1,
+      "localDataset": "import-8d66360f93354b5f86313fc9465bd380",
+      "errors": []
+    },
+    "browser-report": {
+      "environment": "Headless Google Chrome, 1440\u00d71000, local machine; historical HTTP queries + WebGL",
+      "sizes": {
+        "10000": {
+          "fps": 60,
+          "drawMs": 0.16
+        },
+        "100000": {
+          "fps": 60,
+          "drawMs": 0.13
+        },
+        "1000000": {
+          "fps": 60,
+          "drawMs": 0.11
+        },
+        "10000000": {
+          "fps": 60,
+          "drawMs": 0.12
+        }
+      },
+      "stress": {
+        "windowSeconds": 120,
+        "speed": 32,
+        "samples": [
+          {
+            "fps": 60,
+            "drawMs": 0.13,
+            "position": 5002080
+          },
+          {
+            "fps": 60,
+            "drawMs": 0.13,
+            "position": 5003733
+          },
+          {
+            "fps": 60,
+            "drawMs": 0.12,
+            "position": 5005333
+          },
+          {
+            "fps": 60,
+            "drawMs": 0.13,
+            "position": 5006933
+          },
+          {
+            "fps": 60,
+            "drawMs": 0.14,
+            "position": 5008586
+          },
+          {
+            "fps": 60,
+            "drawMs": 0.13,
+            "position": 5010186
+          },
+          {
+            "fps": 60,
+            "drawMs": 0.15,
+            "position": 5011786
+          },
+          {
+            "fps": 60,
+            "drawMs": 0.13,
+            "position": 5013386
+          },
+          {
+            "fps": 60,
+            "drawMs": 0.13,
+            "position": 5015092
+          },
+          {
+            "fps": 60,
+            "drawMs": 0.13,
+            "position": 5016692
+          }
+        ],
+        "averageFps": 60,
+        "averageCpuDrawMs": 0.13199999999999998
+      },
+      "historicalQueries": 54,
+      "websockets": 0,
+      "browserErrors": []
+    },
+    "concurrent-query-density": {
+      "p50Ms": 33.74066650576424,
+      "p95Ms": 85.73291701031849,
+      "samples": [
+        {
+          "queryMs": 22.076125009334646,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 43.43025000707712,
+          "partitionsRead": 5,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741031,
+          "level": 262144
+        },
+        {
+          "queryMs": 39.51775000314228,
+          "partitionsRead": 5,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 39.146750001236796,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 21.962792001431808,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 85.73291701031849,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 29.81537498999387,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 65.08704100269824,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 35.408750001806766,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 37.51495901087765,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 20.67558300041128,
+          "partitionsRead": 4,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 25.70525000919588,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 16.903499999898486,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 23.1905839900719,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 50.606082993908785,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 24.006792009458877,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 15.276749996701255,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 23.29716700478457,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 17.08395800960716,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 45.740707995719276,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 44.44708400114905,
+          "partitionsRead": 4,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 88.87520800635684,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 45.7175420015119,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 92.42724999785423,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 21.420500008389354,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 69.33333299821243,
+          "partitionsRead": 9,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 37.74241700011771,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 76.49370800936595,
+          "partitionsRead": 9,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 42.92566599906422,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 32.07258300972171,
+          "partitionsRead": 9,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 45.96024999045767,
+          "partitionsRead": 4,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 60.6570409872802,
+          "partitionsRead": 9,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 26.812291995156556,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 36.82162500626873,
+          "partitionsRead": 9,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 19.948542001657188,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 25.236750007024966,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 16.914833002374507,
+          "partitionsRead": 3,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 21.32825000444427,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        },
+        {
+          "queryMs": 17.971624998608604,
+          "partitionsRead": 5,
+          "partitionsTotal": 1925,
+          "sourceRows": 30000,
+          "level": 1024
+        },
+        {
+          "queryMs": 29.540957999415696,
+          "partitionsRead": 8,
+          "partitionsTotal": 1925,
+          "sourceRows": 39741030,
+          "level": 262144
+        }
+      ],
+      "condition": "Concurrent production browser playback and 1 GB browser upload/import"
+    }
+  }
+}

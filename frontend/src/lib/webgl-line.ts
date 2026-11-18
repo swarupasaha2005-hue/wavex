@@ -1,3 +1,5 @@
+import { CHART_THEME } from "./chart-theme";
+
 /** A GPU triangle strip keeps a consistent line width on WebGL implementations. */
 export class WebGLLine {
   readonly gl: WebGLRenderingContext;
@@ -51,7 +53,7 @@ export class WebGLLine {
     );
     const fragment = shader(
       gl.FRAGMENT_SHADER,
-      `precision mediump float; void main(){gl_FragColor=vec4(0.475,0.875,0.765,1.0);}`,
+      `precision mediump float; void main(){gl_FragColor=vec4(${CHART_THEME.line.join(",")},1.0);}`,
     );
     this.program = gl.createProgram()!;
     gl.attachShader(this.program, vertex);
@@ -104,7 +106,7 @@ export class WebGLLine {
     if (this.lost) return;
     const gl = this.gl;
     gl.viewport(0, 0, this.canvas.width, this.canvas.height);
-    gl.clearColor(16 / 255, 23 / 255, 25 / 255, 1);
+    gl.clearColor(...CHART_THEME.background, 1);
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.viewport(
       Math.round(plot.left * dpr),
@@ -135,7 +137,10 @@ export class WebGLLine {
       plot.width * dpr,
       plot.height * dpr,
     );
-    gl.uniform1f(gl.getUniformLocation(this.program, "u_width"), 1.6 * dpr);
+    gl.uniform1f(
+      gl.getUniformLocation(this.program, "u_width"),
+      CHART_THEME.lineWidth * dpr,
+    );
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, this.count);
   }
   dispose() {

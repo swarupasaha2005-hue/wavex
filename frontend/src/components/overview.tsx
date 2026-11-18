@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { scaleLinear } from "d3-scale";
 import { API_URL, Dataset } from "@/lib/types";
+import { CHART_THEME } from "@/lib/chart-theme";
 
 export function Overview({
   dataset,
@@ -72,7 +73,7 @@ export function Overview({
       const y = scaleLinear()
         .domain([bounds.min, bounds.max])
         .range([height - 7, 7]);
-      ctx.strokeStyle = "#54746c";
+      ctx.strokeStyle = CHART_THEME.overview;
       ctx.lineWidth = 1;
       ctx.beginPath();
       preview.forEach(([index, value], i) =>
@@ -82,7 +83,7 @@ export function Overview({
       ctx.lineTo(width, height);
       ctx.lineTo(0, height);
       ctx.closePath();
-      ctx.fillStyle = "rgba(110,169,149,.05)";
+      ctx.fillStyle = CHART_THEME.overviewFill;
       ctx.fill();
     };
     const observer = new ResizeObserver(draw);

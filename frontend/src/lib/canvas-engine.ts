@@ -2,6 +2,7 @@ import { scaleLinear, scaleUtc } from "d3-scale";
 import { utcFormat } from "d3-time-format";
 import { RangeCache, Tile } from "./range-cache";
 import { WebGLLine } from "./webgl-line";
+import { CHART_THEME } from "./chart-theme";
 import { Dataset, PlaybackStats, PlaybackStatus } from "./types";
 
 const label = utcFormat("%H:%M:%S");
@@ -312,18 +313,18 @@ export class CanvasEngine {
     );
     const ctx = this.context;
     ctx.clearRect(0, 0, width, height);
-    ctx.font = "11px 'SFMono-Regular',Consolas,monospace";
+    ctx.font = CHART_THEME.font;
     ctx.textBaseline = "middle";
     ctx.lineWidth = 1;
     for (const value of y.ticks(5)) {
       const py = Math.round(y(value)) + 0.5;
-      ctx.strokeStyle = "#243032";
+      ctx.strokeStyle = CHART_THEME.grid;
       ctx.setLineDash([3, 5]);
       ctx.beginPath();
       ctx.moveTo(left, py);
       ctx.lineTo(right, py);
       ctx.stroke();
-      ctx.fillStyle = "#7e9093";
+      ctx.fillStyle = CHART_THEME.axis;
       ctx.textAlign = "left";
       ctx.fillText(
         value !== 0 && (Math.abs(value) < 0.001 || Math.abs(value) >= 1e6)
@@ -355,19 +356,19 @@ export class CanvasEngine {
           }));
     for (const tick of ticks) {
       const px = Math.round(tick.x) + 0.5;
-      ctx.strokeStyle = "#202b2e";
+      ctx.strokeStyle = CHART_THEME.verticalGrid;
       ctx.setLineDash([3, 5]);
       ctx.beginPath();
       ctx.moveTo(px, top);
       ctx.lineTo(px, bottom);
       ctx.stroke();
-      ctx.fillStyle = "#7e9093";
+      ctx.fillStyle = CHART_THEME.axis;
       ctx.textAlign = "center";
       ctx.fillText(tick.text, px, bottom + 25);
     }
     ctx.setLineDash([]);
     ctx.textAlign = "left";
-    ctx.fillStyle = "#7e9093";
+    ctx.fillStyle = CHART_THEME.axis;
     ctx.fillText(this.dataset.unit.toUpperCase(), right + 17, 15);
     if (!available) {
       ctx.textAlign = "center";
@@ -381,9 +382,9 @@ export class CanvasEngine {
     const endpoint = this.endpoint();
     if (endpoint && endpoint.time >= start) {
       const py = y(endpoint.value);
-      ctx.fillStyle = "#79dfc3";
+      ctx.fillStyle = CHART_THEME.highlight;
       ctx.fillRect(right + 7, py - 12, 61, 24);
-      ctx.fillStyle = "#10241e";
+      ctx.fillStyle = CHART_THEME.highlightText;
       ctx.textAlign = "center";
       ctx.fillText(endpoint.value.toFixed(2), right + 37, py);
     }
@@ -407,21 +408,21 @@ export class CanvasEngine {
       if (nearest) {
         const px = left + ((nearest.time - start) / span) * (right - left),
           py = y(nearest.value);
-        ctx.strokeStyle = "#658078";
+        ctx.strokeStyle = CHART_THEME.crosshair;
         ctx.setLineDash([3, 4]);
         ctx.beginPath();
         ctx.moveTo(px, top);
         ctx.lineTo(px, bottom);
         ctx.stroke();
         ctx.setLineDash([]);
-        ctx.fillStyle = "#e2f7ee";
+        ctx.fillStyle = CHART_THEME.point;
         ctx.beginPath();
         ctx.arc(px, py, 3, 0, Math.PI * 2);
         ctx.fill();
         const tx = Math.max(left, Math.min(right - 270, px + 12));
-        ctx.fillStyle = "#20332e";
+        ctx.fillStyle = CHART_THEME.tooltip;
         ctx.fillRect(tx, top + 4, 270, 32);
-        ctx.fillStyle = "#d1e8df";
+        ctx.fillStyle = CHART_THEME.tooltipText;
         ctx.textAlign = "left";
         const fraction = String(
           ((nearest.exact % 1000000000n) + 1000000000n) % 1000000000n,

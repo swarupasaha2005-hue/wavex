@@ -309,28 +309,30 @@ def ensure_samples_imported(root: Path):
     for key, sample in SAMPLE_DATASETS.items():
         job_id = hashlib.md5(f"sample-{key}".encode()).hexdigest()
         dataset_id = f"import-{job_id}"
-        if remote.ON_VERCEL:
-            existing = remote.blob_get_json(f"jobs/{job_id}.json")
-            if existing and existing["status"] == "ready":
-                continue
-            remote_run_job(
-                {
-                    "id": job_id,
-                    "datasetId": dataset_id,
-                    "config": {**sample["config"], "_sampleKey": key},
-                    "status": "queued",
-                    "stage": "queued",
-                    "progress": 0,
-                    "rowsProcessed": 0,
-                }
-            )
-        else:
-            if (root / dataset_id / "manifest.json").exists():
-                continue
-            try:
+        try:
+            if remote.ON_VERCEL:
+                existing = remote.blob_get_json(f"jobs/{job_id}.json")
+                if existing and existing["status"] == "ready":
+                    continue
+                remote_run_job(
+                    {
+                        "id": job_id,
+                        "datasetId": dataset_id,
+                        "config": {**sample["config"], "_sampleKey": key},
+                        "status": "queued",
+                        "stage": "queued",
+                        "progress": 0,
+                        "rowsProcessed": 0,
+                    }
+                )
+            else:
+                if (root / dataset_id / "manifest.json").exists():
+                    continue
                 ingest(sample["path"], root / dataset_id, sample["config"])
-            except Exception:
-                pass
+        except Exception:
+            # A broken Blob/KV connection on Vercel shouldn't take the whole app down;
+            # the sample just won't be pre-populated until it's reachable.
+            pass
 
 
 # ---------------------------------------------------------------------------
@@ -562,20 +564,23 @@ async def import_sample(key: str, request: Request):
     config = sample["config"]
 
     if remote.ON_VERCEL:
-        existing = remote.blob_get_json(f"jobs/{job_id}.json")
-        if existing and existing["status"] in ("queued", "processing", "ready"):
-            return safe_job(existing)
-        job = {
-            "id": job_id,
-            "datasetId": dataset_id,
-            "config": {**config, "_sampleKey": key},
-            "status": "queued",
-            "stage": "queued",
-            "progress": 0,
-            "rowsProcessed": 0,
-        }
-        job = await asyncio.to_thread(remote_run_job, job)
-        return safe_job(job)
+        try:
+            existing = remote.blob_get_json(f"jobs/{job_id}.json")
+            if existing and existing["status"] in ("queued", "processing", "ready"):
+                return safe_job(existing)
+            job = {
+                "id": job_id,
+                "datasetId": dataset_id,
+                "config": {**config, "_sampleKey": key},
+                "status": "queued",
+                "stage": "queued",
+                "progress": 0,
+                "rowsProcessed": 0,
+            }
+            job = await asyncio.to_thread(remote_run_job, job)
+            return safe_job(job)
+        except RuntimeError as exc:
+            raise HTTPException(503, str(exc))
 
     service = manager(request)
     if (service.root / dataset_id / "manifest.json").exists():

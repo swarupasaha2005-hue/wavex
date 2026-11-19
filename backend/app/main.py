@@ -69,6 +69,8 @@ def metadata(identifier):
         return manifest(DATA_DIR, identifier)
     except (FileNotFoundError, ValueError):
         raise HTTPException(404, "Dataset not ready or not found")
+    except RuntimeError as exc:
+        raise HTTPException(503, str(exc))
 
 
 async def build_dataset(identifier, size, seed):
@@ -109,17 +111,20 @@ def list_datasets():
         if not path.parent.name.startswith(".")
     )
     if remote.ON_VERCEL:
-        imported = {
-            name.split("/")[1]
-            for name in remote.blob_list("datasets/")
-            if name.endswith("/manifest.json")
-        }
-        ids = sorted({*ids, *imported})
+        try:
+            imported = {
+                name.split("/")[1]
+                for name in remote.blob_list("datasets/")
+                if name.endswith("/manifest.json")
+            }
+            ids = sorted({*ids, *imported})
+        except Exception:
+            logger.exception("Could not list imported datasets from Blob")
     results = []
     for identifier in ids:
         try:
             info = manifest(DATA_DIR, identifier)
-        except (FileNotFoundError, ValueError):
+        except (FileNotFoundError, ValueError, RuntimeError):
             continue
         results.append(
             {k: v for k, v in public_metadata(info).items() if k != "overview"}
@@ -174,6 +179,8 @@ async def get_range(
             )
     except ValueError as exc:
         raise HTTPException(422, str(exc))
+    except RuntimeError as exc:
+        raise HTTPException(503, str(exc))
 
 
 @app.get("/datasets/{identifier}")
@@ -181,14 +188,17 @@ def get_dataset(identifier: str):
     info = metadata(identifier)
     result = public_metadata(info)
     if info.get("kind") == "imported":
-        coarse = range_query(
-            DATA_DIR,
-            identifier,
-            int(info["startTimeNs"]),
-            int(info["endTimeNs"]),
-            [info["columns"][0]],
-            1600,
-        )
+        try:
+            coarse = range_query(
+                DATA_DIR,
+                identifier,
+                int(info["startTimeNs"]),
+                int(info["endTimeNs"]),
+                [info["columns"][0]],
+                1600,
+            )
+        except RuntimeError as exc:
+            raise HTTPException(503, str(exc))
         points = coarse["series"][info["columns"][0]]
         origin = int(info["startTimeNs"])
         result["overview"] = [

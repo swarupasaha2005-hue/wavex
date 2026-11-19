@@ -12,6 +12,7 @@ from pathlib import Path
 import numpy as np
 
 from .storage import connect
+from . import remote_storage as remote
 
 MAX_POINTS = 8192
 
@@ -25,6 +26,19 @@ def load_manifest(path: str, modified: int):
     return info
 
 
+@lru_cache(maxsize=24)
+def load_remote_manifest(identifier: str):
+    """Imported datasets' bytes live in Blob on Vercel; cached per-invocation only."""
+    try:
+        info = json.loads(remote.blob_get(f"datasets/{identifier}/manifest.json"))
+    except FileNotFoundError:
+        raise ValueError("Dataset not found")
+    for level in info.get("levels", []):
+        level["starts"] = [part["lo"] for part in level["parts"]]
+        level["ends"] = [part["hi"] for part in level["parts"]]
+    return info
+
+
 def manifest(root: Path, identifier: str):
     if (
         not identifier
@@ -32,6 +46,8 @@ def manifest(root: Path, identifier: str):
         or any(c not in "abcdefghijklmnopqrstuvwxyz0123456789-" for c in identifier)
     ):
         raise ValueError("Invalid dataset identifier")
+    if remote.ON_VERCEL and identifier.startswith("import-"):
+        return load_remote_manifest(identifier)
     path = root / identifier / "manifest.json"
     return load_manifest(str(path), path.stat().st_mtime_ns)
 
@@ -125,7 +141,13 @@ def range_query(
             parts = selected_parts(level, start, end, row_range)
             if not parts:
                 return
-            files = [str(root / identifier / p["path"]) for p in parts]
+            if remote.ON_VERCEL and identifier.startswith("import-"):
+                files = [
+                    remote.blob_url(f"datasets/{identifier}/{p['path']}")
+                    for p in parts
+                ]
+            else:
+                files = [str(root / identifier / p["path"]) for p in parts]
             touched.update(files)
             if index == 0:
                 selected = ", ".join(["ts", "row", *[f"v{i}" for i in indices]])

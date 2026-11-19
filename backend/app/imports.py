@@ -1,4 +1,14 @@
-"""Crash-safe upload journals and a single durable, subprocess-backed import queue."""
+"""Crash-safe upload journals and a durable import queue.
+
+Locally (and on any non-Vercel host), journals/jobs live as JSON files under WAVEX_DATA_DIR
+and a single subprocess worker drains an in-memory queue, exactly as before.
+
+On Vercel (ON_VERCEL), there is no persistent local disk across requests/instances and no
+long-lived worker process, so this module instead keeps journals/jobs in Vercel KV, chunk
+bytes and finished datasets in Vercel Blob, and dispatches each import job through Upstash
+QStash to a dedicated endpoint (/imports/{id}/process) that runs the existing ingest()
+pipeline against a single invocation's local /tmp, then publishes the result to Blob.
+"""
 
 from __future__ import annotations
 
@@ -12,14 +22,22 @@ import uuid
 from pathlib import Path
 from typing import Literal
 
-from fastapi import APIRouter, HTTPException, Request
+import httpx
+from fastapi import APIRouter, Header, HTTPException, Request
 from pydantic import BaseModel, Field
 
-from .storage import atomic_json, validate_config
+from .storage import atomic_json, ingest, validate_config
+from . import remote_storage as remote
 
 router = APIRouter()
 CHUNK_BYTES = 8 * 1024 * 1024
 MAX_FILE_BYTES = 10 * 1024**3
+
+QSTASH_TOKEN = os.environ.get("QSTASH_TOKEN", "")
+WORKER_SECRET = os.environ.get("WAVEX_WORKER_SECRET", "")
+PUBLIC_URL = os.environ.get("WAVEX_PUBLIC_URL") or (
+    f"https://{os.environ['VERCEL_URL']}" if os.environ.get("VERCEL_URL") else ""
+)
 
 
 class ImportConfig(BaseModel):
@@ -41,8 +59,21 @@ class LocalCreate(ImportConfig):
     path: str = Field(min_length=1, max_length=4096)
 
 
+def valid_identifier(identifier: str) -> bool:
+    return len(identifier) == 32 and all(c in "0123456789abcdef" for c in identifier)
+
+
+def safe_job(job):
+    return {key: value for key, value in job.items() if key not in ("source", "config")}
+
+
+# ---------------------------------------------------------------------------
+# Local filesystem path (unchanged behavior for local dev / non-Vercel hosts)
+# ---------------------------------------------------------------------------
+
+
 def read_state(root: Path, folder: str, identifier: str):
-    if len(identifier) != 32 or any(c not in "0123456789abcdef" for c in identifier):
+    if not valid_identifier(identifier):
         raise HTTPException(404, "Import session not found")
     path = root / folder / f"{identifier}.json"
     if not path.exists():
@@ -62,6 +93,8 @@ class ImportManager:
         self.stopping = False
 
     def start(self):
+        if remote.ON_VERCEL:
+            return
         # Prevent two local servers from writing the same processing directories.
         self.owner = (self.root / ".import-owner.lock").open("a+b")
         try:
@@ -146,6 +179,8 @@ class ImportManager:
 
     async def stop(self):
         self.stopping = True
+        if remote.ON_VERCEL:
+            return
         if self.process is not None and self.process.returncode is None:
             self.process.terminate()
             await self.process.wait()
@@ -174,12 +209,126 @@ class ImportManager:
         return safe_job(job)
 
 
-def safe_job(job):
-    return {key: value for key, value in job.items() if key not in ("source", "config")}
-
-
 def manager(request: Request) -> ImportManager:
     return request.app.state.imports
+
+
+# ---------------------------------------------------------------------------
+# Vercel path: Blob for bytes, KV for journals/jobs, QStash for the worker
+# ---------------------------------------------------------------------------
+
+JOBS_INDEX = "jobs:index"
+DATASETS_INDEX = "datasets:index"
+
+
+def remote_read_upload(identifier: str) -> dict:
+    if not valid_identifier(identifier):
+        raise HTTPException(404, "Import session not found")
+    state = remote.kv_hgetall(f"upload:{identifier}")
+    if not state:
+        raise HTTPException(404, "Import session not found")
+    state["valueColumns"] = json.loads(state["valueColumns"])
+    state["offset"] = int(state["offset"])
+    state["chunkBytes"] = int(state["chunkBytes"])
+    state["size"] = int(state["size"])
+    state["jobId"] = state.get("jobId") or None
+    return state
+
+
+def remote_read_job(identifier: str) -> dict:
+    if not valid_identifier(identifier):
+        raise HTTPException(404, "Import job not found")
+    raw = remote.kv_get(f"job:{identifier}")
+    if not raw:
+        raise HTTPException(404, "Import job not found")
+    return json.loads(raw)
+
+
+def remote_write_job(job: dict):
+    remote.kv_set(f"job:{job['id']}", json.dumps(job))
+    remote.kv_sadd(JOBS_INDEX, job["id"])
+
+
+async def remote_enqueue(identifier: str):
+    if not PUBLIC_URL:
+        raise HTTPException(
+            500,
+            "WAVEX_PUBLIC_URL (or VERCEL_URL) is not set; the import worker has nowhere to call back",
+        )
+    if not QSTASH_TOKEN:
+        raise HTTPException(500, "QSTASH_TOKEN is not set; cannot enqueue the import job")
+    async with httpx.AsyncClient() as client:
+        response = await client.post(
+            # /api/... matches the public rewrite in vercel.json; StripApiPrefix removes it server-side.
+            f"https://qstash.upstash.io/v2/publish/{PUBLIC_URL}/api/imports/{identifier}/process",
+            headers={
+                "Authorization": f"Bearer {QSTASH_TOKEN}",
+                "Upstash-Forward-X-Worker-Secret": WORKER_SECRET,
+                "Content-Type": "application/json",
+            },
+            json={},
+            timeout=15,
+        )
+        response.raise_for_status()
+
+
+@router.post("/imports/{identifier}/process")
+async def process_import(identifier: str, x_worker_secret: str = Header(default="")):
+    """QStash calls this to run one import job to completion inside /tmp, then publish to Blob."""
+    if not remote.ON_VERCEL:
+        raise HTTPException(404, "Not found")
+    if not WORKER_SECRET or x_worker_secret != WORKER_SECRET:
+        raise HTTPException(401, "Invalid worker secret")
+    job = remote_read_job(identifier)
+    if job["status"] not in ("queued", "processing"):
+        return safe_job(job)
+    work_root = Path(f"/tmp/wavex-import-{identifier}")
+    shutil.rmtree(work_root, ignore_errors=True)
+    work_root.mkdir(parents=True)
+    source = work_root / "source"
+    destination = work_root / job["datasetId"]
+
+    def report(update):
+        job.update(update)
+        remote_write_job(job)
+
+    try:
+        job.update(status="processing", stage="downloading", progress=0, error=None)
+        remote_write_job(job)
+        if job["config"].get("_uploadId"):
+            chunk_prefix = f"uploads/{job['config']['_uploadId']}/chunks/"
+            with source.open("wb") as handle:
+                offset = 0
+                while offset < job["config"]["_uploadSize"]:
+                    handle.write(remote.blob_get(f"{chunk_prefix}{offset:012d}.bin"))
+                    offset += CHUNK_BYTES
+        else:
+            source.write_bytes(remote.blob_get(job["config"]["_sourceBlobKey"]))
+        ingest(source, destination, job["config"], report)
+        for path in destination.rglob("*"):
+            if path.is_file():
+                key = f"datasets/{job['datasetId']}/{path.relative_to(destination)}"
+                remote.blob_put(key, path.read_bytes())
+        remote.kv_sadd(DATASETS_INDEX, job["datasetId"])
+        if job["config"].get("_uploadId"):
+            remote.blob_delete(f"uploads/{job['config']['_uploadId']}/")
+            remote.kv_delete(f"upload:{job['config']['_uploadId']}")
+        job.update(status="ready", stage="ready", progress=1)
+    except Exception as exc:
+        job.update(
+            status="error",
+            stage="error",
+            error=f"{type(exc).__name__}: {str(exc)[:1200]}",
+        )
+    finally:
+        remote_write_job(job)
+        shutil.rmtree(work_root, ignore_errors=True)
+    return safe_job(job)
+
+
+# ---------------------------------------------------------------------------
+# Routes: branch per-request on ON_VERCEL
+# ---------------------------------------------------------------------------
 
 
 @router.post("/uploads", status_code=201)
@@ -188,12 +337,6 @@ async def create_upload(config: UploadCreate, request: Request):
         validate_config(config.model_dump())
     except ValueError as exc:
         raise HTTPException(422, str(exc))
-    root = manager(request).root
-    # Reserve headroom for the source, Parquet, sorting and temporary files.
-    if shutil.disk_usage(root).free < config.size * 3 + 256 * 1024**2:
-        raise HTTPException(
-            507, "Insufficient free disk space for the source and processing files"
-        )
     identifier = uuid.uuid4().hex
     state = {
         "id": identifier,
@@ -202,6 +345,18 @@ async def create_upload(config: UploadCreate, request: Request):
         **config.model_dump(),
         "jobId": None,
     }
+    if remote.ON_VERCEL:
+        remote.kv_hset(
+            f"upload:{identifier}",
+            {**state, "valueColumns": json.dumps(state["valueColumns"])},
+        )
+        return state
+    root = manager(request).root
+    # Reserve headroom for the source, Parquet, sorting and temporary files.
+    if shutil.disk_usage(root).free < config.size * 3 + 256 * 1024**2:
+        raise HTTPException(
+            507, "Insufficient free disk space for the source and processing files"
+        )
     directory = root / ".uploads"
     directory.mkdir(parents=True, exist_ok=True)
     (directory / f"{identifier}.part").touch()
@@ -211,21 +366,46 @@ async def create_upload(config: UploadCreate, request: Request):
 
 @router.get("/uploads/{identifier}")
 async def upload_status(identifier: str, request: Request):
+    if remote.ON_VERCEL:
+        return remote_read_upload(identifier)
     return read_state(manager(request).root, ".uploads", identifier)[1]
 
 
 @router.put("/uploads/{identifier}")
 async def upload_chunk(identifier: str, request: Request):
+    checksum = request.headers.get("X-Chunk-SHA256", "")
+    if len(checksum) != 64 or any(c not in "0123456789abcdef" for c in checksum):
+        raise HTTPException(400, "Send a SHA-256 checksum for every chunk")
+    try:
+        offset = int(request.headers.get("Upload-Offset", "-1"))
+    except ValueError:
+        raise HTTPException(400, "Upload-Offset must be an integer")
+
+    if remote.ON_VERCEL:
+        state = remote_read_upload(identifier)
+        if offset != state["offset"]:
+            raise HTTPException(409, detail={"offset": state["offset"]})
+        if state["jobId"] or offset >= state["size"]:
+            raise HTTPException(409, "This upload is already complete")
+        digest, body = hashlib.sha256(), b""
+        async for chunk in request.stream():
+            body += chunk
+            if len(body) > CHUNK_BYTES or offset + len(body) > state["size"]:
+                raise HTTPException(
+                    413, "Chunk exceeds the negotiated size or file boundary"
+                )
+        digest.update(body)
+        if not body or digest.hexdigest() != checksum:
+            raise HTTPException(422, "Empty chunk or checksum mismatch; resend this chunk")
+        remote.blob_put(f"uploads/{identifier}/chunks/{offset:012d}.bin", body)
+        new_offset = remote.kv_advance_offset(f"upload:{identifier}", offset, len(body))
+        if new_offset != offset + len(body):
+            raise HTTPException(409, detail={"offset": new_offset})
+        return {"id": identifier, "offset": new_offset}
+
     service = manager(request)
     async with service.locks.setdefault(identifier, asyncio.Lock()):
         path, state = read_state(service.root, ".uploads", identifier)
-        try:
-            offset = int(request.headers.get("Upload-Offset", "-1"))
-        except ValueError:
-            raise HTTPException(400, "Upload-Offset must be an integer")
-        checksum = request.headers.get("X-Chunk-SHA256", "")
-        if len(checksum) != 64 or any(c not in "0123456789abcdef" for c in checksum):
-            raise HTTPException(400, "Send a SHA-256 checksum for every chunk")
         if offset != state["offset"]:
             raise HTTPException(409, detail={"offset": state["offset"]})
         if state["jobId"] or offset >= state["size"]:
@@ -260,6 +440,31 @@ async def upload_chunk(identifier: str, request: Request):
 
 @router.post("/uploads/{identifier}/complete", status_code=202)
 async def complete_upload(identifier: str, request: Request):
+    if remote.ON_VERCEL:
+        state = remote_read_upload(identifier)
+        if state["jobId"]:
+            return safe_job(remote_read_job(state["jobId"]))
+        if state["offset"] != state["size"]:
+            raise HTTPException(409, "Upload every byte before completing")
+        job_id = identifier
+        job = {
+            "id": job_id,
+            "datasetId": f"import-{job_id}",
+            "config": {
+                **{k: state[k] for k in ImportConfig.model_fields},
+                "_uploadId": identifier,
+                "_uploadSize": state["size"],
+            },
+            "status": "queued",
+            "stage": "queued",
+            "progress": 0,
+            "rowsProcessed": 0,
+        }
+        remote_write_job(job)
+        remote.kv_hset(f"upload:{identifier}", {**state, "jobId": job_id, "valueColumns": json.dumps(state["valueColumns"])})
+        await remote_enqueue(job_id)
+        return safe_job(job)
+
     service = manager(request)
     async with service.locks.setdefault(identifier, asyncio.Lock()):
         path, state = read_state(service.root, ".uploads", identifier)
@@ -275,6 +480,24 @@ async def complete_upload(identifier: str, request: Request):
 
 @router.delete("/uploads/{identifier}")
 async def discard_upload(identifier: str, request: Request):
+    if remote.ON_VERCEL:
+        state = remote_read_upload(identifier)
+        if state["jobId"]:
+            job = remote_read_job(state["jobId"])
+            if job["status"] in ("queued", "processing"):
+                raise HTTPException(
+                    409,
+                    "The import is processing. Wait for it to finish before discarding its upload session.",
+                )
+            if job["status"] == "error":
+                job.update(
+                    error="Uploaded source discarded. Start a new upload to import this file again."
+                )
+                remote_write_job(job)
+        remote.blob_delete(f"uploads/{identifier}/")
+        remote.kv_delete(f"upload:{identifier}")
+        return {"status": "discarded"}
+
     service = manager(request)
     async with service.locks.setdefault(identifier, asyncio.Lock()):
         path, state = read_state(service.root, ".uploads", identifier)
@@ -297,6 +520,12 @@ async def discard_upload(identifier: str, request: Request):
 
 @router.post("/imports/local", status_code=202)
 async def import_local(config: LocalCreate, request: Request):
+    if remote.ON_VERCEL:
+        raise HTTPException(
+            422,
+            "Local file path import isn't available on this deployment; there is no persistent "
+            "backend filesystem to read from. Use Resumable upload instead.",
+        )
     service = manager(request)
     source = Path(config.path).expanduser().resolve()
     try:
@@ -317,6 +546,14 @@ async def import_local(config: LocalCreate, request: Request):
 
 @router.get("/imports")
 async def list_imports(request: Request):
+    if remote.ON_VERCEL:
+        ids = remote.kv_smembers(JOBS_INDEX)
+        jobs = []
+        for job_id in ids:
+            raw = remote.kv_get(f"job:{job_id}")
+            if raw:
+                jobs.append(safe_job(json.loads(raw)))
+        return sorted(jobs, key=lambda j: j["id"])
     return [
         safe_job(json.loads(path.read_text()))
         for path in sorted((manager(request).root / ".jobs").glob("*.json"))
@@ -325,6 +562,8 @@ async def list_imports(request: Request):
 
 @router.get("/imports/{identifier}")
 async def import_status(identifier: str, request: Request):
+    if remote.ON_VERCEL:
+        return safe_job(remote_read_job(identifier))
     return safe_job(read_state(manager(request).root, ".jobs", identifier)[1])
 
 
@@ -332,6 +571,20 @@ async def import_status(identifier: str, request: Request):
 async def retry_import(
     identifier: str, request: Request, config: ImportConfig | None = None
 ):
+    if remote.ON_VERCEL:
+        job = remote_read_job(identifier)
+        if job["status"] == "error":
+            if config is not None:
+                try:
+                    validate_config(config.model_dump())
+                except ValueError as exc:
+                    raise HTTPException(422, str(exc))
+                job["config"].update(config.model_dump())
+            job.update(status="queued", stage="queued", progress=0, error=None)
+            remote_write_job(job)
+            await remote_enqueue(identifier)
+        return safe_job(job)
+
     service = manager(request)
     path, job = read_state(service.root, ".jobs", identifier)
     if job["status"] == "error":

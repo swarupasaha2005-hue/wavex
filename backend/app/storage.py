@@ -53,6 +53,8 @@ def connect(directory: Path):
             "preserve_insertion_order": False,
         }
     )
+    if os.environ.get("VERCEL"):
+        connection.execute("INSTALL httpfs; LOAD httpfs;")
     return connection
 
 

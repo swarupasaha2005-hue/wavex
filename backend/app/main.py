@@ -10,6 +10,7 @@ from .generator import DATA_DIR, SIZES, dataset_id, generate
 from .imports import ImportManager, router as imports_router
 from .live import router as live_router
 from .query import manifest, public_metadata, range_query
+from . import remote_storage as remote
 
 logger = logging.getLogger("wavex")
 jobs: dict[str, dict] = {}
@@ -101,15 +102,23 @@ def health():
 
 @app.get("/datasets")
 def list_datasets():
-    return [
-        {
-            k: v
-            for k, v in public_metadata(manifest(DATA_DIR, path.parent.name)).items()
-            if k != "overview"
-        }
-        for path in sorted(DATA_DIR.glob("*/manifest.json"))
+    ids = sorted(
+        path.parent.name
+        for path in DATA_DIR.glob("*/manifest.json")
         if not path.parent.name.startswith(".")
-    ]
+    )
+    if remote.ON_VERCEL:
+        ids = sorted({*ids, *remote.kv_smembers("datasets:index")})
+    results = []
+    for identifier in ids:
+        try:
+            info = manifest(DATA_DIR, identifier)
+        except (FileNotFoundError, ValueError):
+            continue
+        results.append(
+            {k: v for k, v in public_metadata(info).items() if k != "overview"}
+        )
+    return results
 
 
 @app.post("/datasets", status_code=202)

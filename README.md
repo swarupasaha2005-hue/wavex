@@ -104,6 +104,24 @@ For production locally, stop the dev frontend, run `npm run build`, then `npm ru
 
 The server binds loopback by default. Local-path imports can read files accessible to the backend account. This is a local workstation application; shared public hosting would require authentication, scoped file access, and quota policies. No distributed infrastructure is required for local use.
 
+## Running fully on Vercel
+
+`vercel.json` deploys the backend as a FastAPI service under `/api` and the frontend as a Next.js service, per Vercel's multi-service config. Vercel functions have no persistent local disk across requests/instances, so on Vercel (detected via the `VERCEL` env var Vercel sets automatically) the import pipeline swaps its storage:
+
+- **Vercel Blob** holds uploaded chunk bytes and finished imported datasets (Parquet + manifest).
+- **Vercel KV** (Upstash Redis) holds upload journals and job records, shared across instances.
+- **Upstash QStash** dispatches each completed upload to a worker endpoint (`POST /imports/{id}/process`) that downloads the chunks, runs the same ingest pipeline against that invocation's `/tmp`, and publishes the result to Blob.
+
+Required environment variables, set in the Vercel project (Blob/KV are added from the Vercel Storage tab, which sets most of these automatically):
+
+- `BLOB_READ_WRITE_TOKEN` — from the Vercel Blob store.
+- `KV_REST_API_URL`, `KV_REST_API_TOKEN` — from the Vercel KV store.
+- `QSTASH_TOKEN` — from an Upstash QStash project (free tier works).
+- `WAVEX_WORKER_SECRET` — any random string; shared between the publish call and the worker endpoint so QStash's callback can't be hit by a bare public POST.
+- `WAVEX_PUBLIC_URL` — your deployment's public base URL (e.g. `https://your-app.vercel.app`); falls back to the Vercel-provided `VERCEL_URL` if unset.
+
+Limitations of this setup, inherent to serverless functions rather than this app's code: **local file path import is unavailable** (there's no persistent backend filesystem to read from — use Resumable upload); very large imports may exceed your plan's function duration limit, since one worker invocation runs the whole ingest pipeline; and synthetic (non-imported) dataset generation/listing is still scoped to local disk and isn't yet made cross-instance-consistent by this change.
+
 ## Genuine live events
 
 Historical replay is explicitly labeled in the interface and uses HTTP. Genuine live events are a separate backend contract: send timestamped observations to `POST /live/{name}/publish`, and subscribe at `ws://127.0.0.1:8000/ws/live/{name}`. These endpoints emit source-published observations, with no generated replay clock. See the architecture document for an example and bounded slow-consumer behavior. The current explorer UI opens historical datasets; connecting an external live source to a dedicated UI mode is separate from historical import/playback.

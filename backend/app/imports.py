@@ -111,9 +111,10 @@ class ImportManager:
                     self.process = await asyncio.create_subprocess_exec(
                         sys.executable,
                         "-m",
-                        "backend.app.import_worker",
+                        f"{__package__}.import_worker",
                         identifier,
-                        cwd=Path(__file__).resolve().parents[2],
+                        # package is backend.app locally, app when deployed from backend/
+                        cwd=Path(__file__).resolve().parents[__package__.count(".") + 1],
                         env=env,
                         stdout=handle,
                         stderr=handle,

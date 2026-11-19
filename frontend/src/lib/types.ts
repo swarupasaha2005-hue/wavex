@@ -40,5 +40,7 @@ export interface PlaybackStats {
   lod: number;
 }
 export const API_URL = (
-  process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000"
+  process.env.NEXT_PUBLIC_API_URL ||
+  // On Vercel the backend service is same-origin under /api.
+  (process.env.NEXT_PUBLIC_VERCEL_ENV ? "/api" : "http://127.0.0.1:8000")
 ).replace(/\/$/, "");

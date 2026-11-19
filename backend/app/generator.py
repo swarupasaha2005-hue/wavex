@@ -17,8 +17,10 @@ SIZES = (10_000, 100_000, 1_000_000, 10_000_000)
 BLOCK_SIZE = 131_072
 INTERVAL_MS = 10
 START_MS = 1_789_344_000_000  # 2026-09-14T00:00:00Z; shared time origin
+# shortcut: on Vercel only /tmp is writable and it is per-instance and ephemeral; use durable storage for real persistence.
 DATA_DIR = Path(
-    os.environ.get("WAVEX_DATA_DIR", Path(__file__).resolve().parents[1] / "data")
+    os.environ.get("WAVEX_DATA_DIR")
+    or ("/tmp/wavex-data" if os.environ.get("VERCEL") else Path(__file__).resolve().parents[1] / "data")
 )
 
 

@@ -38,6 +38,21 @@ app.add_middleware(
     allow_methods=["GET", "POST", "PUT", "DELETE"],
     allow_headers=["Content-Type", "Upload-Offset", "X-Chunk-SHA256"],
 )
+
+
+class StripApiPrefix:
+    """Vercel forwards /api/... unchanged; routes are mounted unprefixed."""
+
+    def __init__(self, app):
+        self.app = app
+
+    async def __call__(self, scope, receive, send):
+        if scope["type"] != "lifespan" and scope["path"].startswith("/api/"):
+            scope = {**scope, "path": scope["path"][4:]}
+        await self.app(scope, receive, send)
+
+
+app.add_middleware(StripApiPrefix)
 app.include_router(imports_router)
 app.include_router(live_router)
 

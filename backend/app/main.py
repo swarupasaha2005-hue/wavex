@@ -108,7 +108,12 @@ def list_datasets():
         if not path.parent.name.startswith(".")
     )
     if remote.ON_VERCEL:
-        ids = sorted({*ids, *remote.kv_smembers("datasets:index")})
+        imported = {
+            name.split("/")[1]
+            for name in remote.blob_list("datasets/")
+            if name.endswith("/manifest.json")
+        }
+        ids = sorted({*ids, *imported})
     results = []
     for identifier in ids:
         try:

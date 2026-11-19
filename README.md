@@ -106,21 +106,13 @@ The server binds loopback by default. Local-path imports can read files accessib
 
 ## Running fully on Vercel
 
-`vercel.json` deploys the backend as a FastAPI service under `/api` and the frontend as a Next.js service, per Vercel's multi-service config. Vercel functions have no persistent local disk across requests/instances, so on Vercel (detected via the `VERCEL` env var Vercel sets automatically) the import pipeline swaps its storage:
+`vercel.json` deploys the backend as a FastAPI service under `/api` and the frontend as a Next.js service, per Vercel's multi-service config. Vercel functions have no persistent local disk across requests/instances, so on Vercel (detected via the `VERCEL` env var Vercel sets automatically) the import pipeline keeps everything in **Vercel Blob** instead — upload journals, job records, and finished imported datasets (Parquet + manifest) are all plain JSON/Parquet blobs. There's no database and no background queue: completing an upload runs the import synchronously, in the same request, against that invocation's `/tmp`, then publishes the result to Blob. This is deliberately simple rather than horizontally scalable — fine for occasional/small imports, not heavy concurrent production use.
 
-- **Vercel Blob** holds uploaded chunk bytes and finished imported datasets (Parquet + manifest).
-- **Vercel KV** (Upstash Redis) holds upload journals and job records, shared across instances.
-- **Upstash QStash** dispatches each completed upload to a worker endpoint (`POST /imports/{id}/process`) that downloads the chunks, runs the same ingest pipeline against that invocation's `/tmp`, and publishes the result to Blob.
+Required environment variable, set in the Vercel project:
 
-Required environment variables, set in the Vercel project (Blob/KV are added from the Vercel Storage tab, which sets most of these automatically):
+- `BLOB_READ_WRITE_TOKEN` — add a Vercel Blob store from the project's Storage tab; this gets set automatically.
 
-- `BLOB_READ_WRITE_TOKEN` — from the Vercel Blob store.
-- `KV_REST_API_URL`, `KV_REST_API_TOKEN` — from the Vercel KV store.
-- `QSTASH_TOKEN` — from an Upstash QStash project (free tier works).
-- `WAVEX_WORKER_SECRET` — any random string; shared between the publish call and the worker endpoint so QStash's callback can't be hit by a bare public POST.
-- `WAVEX_PUBLIC_URL` — your deployment's public base URL (e.g. `https://your-app.vercel.app`); falls back to the Vercel-provided `VERCEL_URL` if unset.
-
-Limitations of this setup, inherent to serverless functions rather than this app's code: **local file path import is unavailable** (there's no persistent backend filesystem to read from — use Resumable upload); very large imports may exceed your plan's function duration limit, since one worker invocation runs the whole ingest pipeline; and synthetic (non-imported) dataset generation/listing is still scoped to local disk and isn't yet made cross-instance-consistent by this change.
+Limitations of this setup, inherent to serverless functions rather than this app's code: **local file path import is unavailable** (there's no persistent backend filesystem to read from — use Resumable upload); imports large/slow enough to exceed your plan's function duration limit will fail, since one request runs the whole ingest pipeline; concurrent chunk uploads to the same session can race (no locking across instances); and synthetic (non-imported) dataset generation/listing is still scoped to local disk and isn't made cross-instance-consistent by this change.
 
 ## Genuine live events
 

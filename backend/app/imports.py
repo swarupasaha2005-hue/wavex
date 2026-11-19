@@ -33,6 +33,29 @@ router = APIRouter()
 CHUNK_BYTES = 8 * 1024 * 1024
 MAX_FILE_BYTES = 10 * 1024**3
 
+SAMPLE_DIR = Path(__file__).parent / "sample_data"
+SAMPLE_DATASETS = {
+    "uk-weather": {
+        "path": SAMPLE_DIR / "uk_weather.csv",
+        "config": {
+            "format": "csv",
+            "timestampColumn": "time",
+            "timestampUnit": "iso",
+            "valueColumns": [
+                "London_Temperature",
+                "Manchester_Temperature",
+                "Edinburgh_Temperature",
+                "Cardiff_Temperature",
+                "Belfast_Humidity",
+                "Glasgow_Rainfall",
+                "Aberdeen_Wind_Speed",
+            ],
+            "label": "UK Weather",
+            "unit": "",
+        },
+    },
+}
+
 
 class ImportConfig(BaseModel):
     format: Literal["csv", "jsonl"] = "csv"
@@ -248,7 +271,10 @@ def remote_run_job(job: dict):
     destination = work_root / job["datasetId"]
     try:
         job.update(status="processing", stage="downloading", progress=0, error=None)
-        if job["config"].get("_uploadId"):
+        if job["config"].get("_sampleKey"):
+            # Bundled with the deployment itself, not /tmp — no download needed.
+            source = SAMPLE_DATASETS[job["config"]["_sampleKey"]]["path"]
+        elif job["config"].get("_uploadId"):
             chunk_prefix = f"uploads/{job['config']['_uploadId']}/chunks/"
             with source.open("wb") as handle:
                 offset = 0
@@ -488,6 +514,43 @@ async def import_local(config: LocalCreate, request: Request):
     except (ValueError, OSError) as exc:
         raise HTTPException(422, str(exc))
     return service.create_job(source, config.model_dump())
+
+
+@router.get("/imports/samples")
+async def list_samples():
+    """Bundled demo datasets the frontend can offer without requiring an upload."""
+    return [{"key": key, "label": sample["config"]["label"]} for key, sample in SAMPLE_DATASETS.items()]
+
+
+@router.post("/imports/sample/{key}", status_code=202)
+async def import_sample(key: str, request: Request):
+    sample = SAMPLE_DATASETS.get(key)
+    if not sample:
+        raise HTTPException(404, "Unknown sample dataset")
+    job_id = hashlib.md5(f"sample-{key}".encode()).hexdigest()
+    dataset_id = f"import-{job_id}"
+    config = sample["config"]
+
+    if remote.ON_VERCEL:
+        existing = remote.blob_get_json(f"jobs/{job_id}.json")
+        if existing and existing["status"] in ("queued", "processing", "ready"):
+            return safe_job(existing)
+        job = {
+            "id": job_id,
+            "datasetId": dataset_id,
+            "config": {**config, "_sampleKey": key},
+            "status": "queued",
+            "stage": "queued",
+            "progress": 0,
+            "rowsProcessed": 0,
+        }
+        job = await asyncio.to_thread(remote_run_job, job)
+        return safe_job(job)
+
+    service = manager(request)
+    if (service.root / dataset_id / "manifest.json").exists():
+        return {"id": job_id, "datasetId": dataset_id, "status": "ready", "stage": "ready", "progress": 1, "rowsProcessed": 0}
+    return service.create_job(sample["path"], config, job_id)
 
 
 @router.get("/imports")

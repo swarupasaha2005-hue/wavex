@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { FolderOpen, Pause, Upload, X } from "lucide-react";
+import { FolderOpen, Pause, Sparkles, Upload, X } from "lucide-react";
 import { API_URL, Dataset } from "@/lib/types";
 
 interface Config {
@@ -27,6 +27,10 @@ interface Job {
   peakRssBytes?: number;
   processingSeconds?: number;
   error?: string;
+}
+interface Sample {
+  key: string;
+  label: string;
 }
 const KEY = "wavex-import-session-v2";
 const defaults: Config = {
@@ -65,7 +69,9 @@ export function ImportPanel({
 }) {
   const [mode, setMode] = useState("upload"),
     [file, setFile] = useState<File | null>(null),
-    [path, setPath] = useState("");
+    [path, setPath] = useState(""),
+    [samples, setSamples] = useState<Sample[]>([]),
+    [sampleKey, setSampleKey] = useState("");
   const [config, setConfig] = useState<Config>(defaults),
     [session, setSession] = useState<Session | null>(null);
   const [busy, setBusy] = useState(false),
@@ -119,6 +125,17 @@ export function ImportPanel({
     })();
   };
   useEffect(() => {
+    api<Sample[]>("/imports/samples")
+      .then((list) => {
+        if (mounted.current) {
+          setSamples(list);
+          if (list.length && !sampleKey) setSampleKey(list[0].key);
+        }
+      })
+      .catch(() => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
     mounted.current = true;
     try {
       const saved = JSON.parse(
@@ -156,6 +173,15 @@ export function ImportPanel({
         });
         persist({ ...session, config });
         pollJob.current(job.id);
+        return;
+      }
+      if (mode === "sample") {
+        if (!sampleKey) throw new Error("Choose a sample dataset first.");
+        const result = await api<Job>(`/imports/sample/${sampleKey}`, {
+          method: "POST",
+          signal: controller.signal,
+        });
+        pollJob.current(result.id);
         return;
       }
       if (mode === "local") {
@@ -280,7 +306,32 @@ export function ImportPanel({
         >
           <FolderOpen size={14} /> Local file path
         </button>
+        <button
+          disabled={busy || Boolean(session)}
+          className={mode === "sample" ? "selected" : ""}
+          onClick={() => setMode("sample")}
+        >
+          <Sparkles size={14} /> Sample dataset
+        </button>
       </div>
+      {mode === "sample" ? (
+        <fieldset disabled={busy} className="import-fields">
+          <label>
+            Bundled dataset
+            <select
+              aria-label="Sample dataset"
+              value={sampleKey}
+              onChange={(e) => setSampleKey(e.target.value)}
+            >
+              {samples.map((sample) => (
+                <option key={sample.key} value={sample.key}>
+                  {sample.label}
+                </option>
+              ))}
+            </select>
+          </label>
+        </fieldset>
+      ) : (
       <fieldset disabled={locked} className="import-fields">
         <label className="import-source">
           {mode === "upload" ? "Source file" : "Absolute path on this computer"}
@@ -381,7 +432,8 @@ export function ImportPanel({
           />
         </label>
       </fieldset>
-      {session?.id && !session.jobId && !busy && (
+      )}
+      {mode !== "sample" && session?.id && !session.jobId && !busy && (
         <label className="resume-file">
           Reselect the original file to resume
           <input
@@ -401,7 +453,7 @@ export function ImportPanel({
             "Files are validated and processed in the background. Your original local file stays in place."}
         </span>
         <div>
-          {busy && !session?.jobId ? (
+          {busy && !session?.jobId && mode !== "sample" ? (
             <button onClick={() => abort.current?.abort()}>
               <Pause size={13} />
               Pause upload
@@ -422,7 +474,9 @@ export function ImportPanel({
                       ? "Resume upload"
                       : mode === "local"
                         ? "Import local file"
-                        : "Upload and import"}
+                        : mode === "sample"
+                          ? "Load sample dataset"
+                          : "Upload and import"}
             </button>
           )}
         </div>

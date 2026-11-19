@@ -106,7 +106,7 @@ def test_generation_requests_are_deduplicated_and_health_stays_responsive(client
     assert client.get("/health").json()["status"] == "ok"
     identifier = ready_dataset(client, 100000)
     assert client.post("/datasets", json={"size": 100000}).json()["status"] == "ready"
-    assert client.get("/datasets").json()[0]["id"] == identifier
+    assert identifier in [d["id"] for d in client.get("/datasets").json()]
 
 
 def test_seed_reproducibility(tmp_path):

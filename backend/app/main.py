@@ -7,7 +7,7 @@ from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from .generator import DATA_DIR, SIZES, dataset_id, generate
-from .imports import ImportManager, router as imports_router
+from .imports import ImportManager, ensure_samples_imported, router as imports_router
 from .live import router as live_router
 from .query import manifest, public_metadata, range_query
 from . import remote_storage as remote
@@ -24,6 +24,7 @@ async def lifespan(app: FastAPI):
     app.state.imports = ImportManager(DATA_DIR)
     app.state.imports.start()
     app.state.query_slots = asyncio.Semaphore(2)
+    await asyncio.to_thread(ensure_samples_imported, DATA_DIR)
     yield
     await app.state.imports.stop()
     if tasks:

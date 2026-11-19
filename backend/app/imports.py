@@ -303,6 +303,36 @@ def remote_run_job(job: dict):
     return job
 
 
+def ensure_samples_imported(root: Path):
+    """Pre-imports every bundled sample so it's already in the dataset library on startup,
+    instead of only appearing after someone opens the import panel and loads it manually."""
+    for key, sample in SAMPLE_DATASETS.items():
+        job_id = hashlib.md5(f"sample-{key}".encode()).hexdigest()
+        dataset_id = f"import-{job_id}"
+        if remote.ON_VERCEL:
+            existing = remote.blob_get_json(f"jobs/{job_id}.json")
+            if existing and existing["status"] == "ready":
+                continue
+            remote_run_job(
+                {
+                    "id": job_id,
+                    "datasetId": dataset_id,
+                    "config": {**sample["config"], "_sampleKey": key},
+                    "status": "queued",
+                    "stage": "queued",
+                    "progress": 0,
+                    "rowsProcessed": 0,
+                }
+            )
+        else:
+            if (root / dataset_id / "manifest.json").exists():
+                continue
+            try:
+                ingest(sample["path"], root / dataset_id, sample["config"])
+            except Exception:
+                pass
+
+
 # ---------------------------------------------------------------------------
 # Routes: branch per-request on ON_VERCEL
 # ---------------------------------------------------------------------------

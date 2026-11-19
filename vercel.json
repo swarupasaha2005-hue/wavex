@@ -14,5 +14,8 @@
   "rewrites": [
     { "source": "/api/(.*)", "destination": { "service": "backend" } },
     { "source": "/(.*)", "destination": { "service": "frontend" } }
-  ]
+  ],
+  "functions": {
+    "backend/**": { "maxDuration": 60 }
+  }
 }

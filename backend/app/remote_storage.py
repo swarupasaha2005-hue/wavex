@@ -36,6 +36,7 @@ def blob_put(key: str, data: bytes, content_type: str = "application/octet-strea
             "authorization": f"Bearer {BLOB_TOKEN}",
             "x-content-type": content_type,
             "x-add-random-suffix": "0",
+            "x-allow-overwrite": "1",
         },
         timeout=60,
     )
